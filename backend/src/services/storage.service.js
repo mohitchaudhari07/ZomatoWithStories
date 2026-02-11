@@ -5,6 +5,7 @@ cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
+  timeout: 60000,
 });
 
 const uploadFile = (req) => {
@@ -19,17 +20,22 @@ const uploadFile = (req) => {
         folder: "reels",
       },
       (err, result) => {
-        if (err) return reject(err);
+        if (err) {
+          console.log("Cloudinary Upload Error:", err);
+          return reject(err);
+        }
+
+        console.log("Cloudinary Success:", result.secure_url);
+
         resolve({
           videoUrl: result.secure_url,
         });
-      }
+      },
     );
 
     streamifier.createReadStream(req.file.buffer).pipe(stream);
   });
 };
-
 
 module.exports = {
   uploadFile,

@@ -14,6 +14,9 @@ const foodPartnerSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: String,
+  },
 });
 
 const FoodPartner = mongoose.model("foodpartner", foodPartnerSchema);

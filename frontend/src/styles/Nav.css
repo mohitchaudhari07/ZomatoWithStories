@@ -1,0 +1,87 @@
+/* ===== TOP NAVBAR ===== */
+.topbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 32px;
+
+  /* Glassmorphism background */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+/* ===== BRAND WRAPPER ===== */
+.brand {
+  display: flex;
+  align-items: center;
+}
+
+/* ===== COMMON BUTTON / LINK STYLE ===== */
+.zmt {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+
+  padding: 8px 16px;
+  border-radius: 999px;
+
+  /* Adaptive color */
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  transition: all 0.25s ease;
+}
+
+/* ===== BRAND LOGO ===== */
+.brand:first-child .zmt {
+  font-size: 16px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #ff7a18, #ff4d4d);
+  border: none;
+}
+
+/* ===== HOVER EFFECT ===== */
+.zmt:hover {
+  background: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+/* ===== ACTIVE / CLICK ===== */
+.zmt:active {
+  transform: scale(0.97);
+}
+
+/* ===== DARK BACKGROUND SUPPORT ===== */
+body.dark .topbar {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+body.dark .zmt {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 768px) {
+  .topbar {
+    padding: 0 16px;
+  }
+
+  .zmt {
+    font-size: 13px;
+    padding: 6px 14px;
+  }
+}

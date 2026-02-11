@@ -18,11 +18,16 @@ async function registerUser(req, res) {
     password: hashedPassword,
   });
 
-  const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
+  const token = jwt.sign(
+    { userId: newUser._id, role: "user" },
+    process.env.JWT_SECRET,
+  );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false,
+  });
 
   await newUser.save();
   res.status(201).json({
@@ -50,13 +55,19 @@ async function loginUser(req, res) {
   }
 
   const token = jwt.sign(
-    {
-      id: user._id,
-    },
+    { id: user._id, role: "user" },
     process.env.JWT_SECRET,
-    { expiresIn: "1h" },
+    {
+      expiresIn: "7d",
+    },
   );
-  res.cookie("token", token);
+
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false, // true only in production (HTTPS)
+  });
+
   res.status(200).json({
     message: "Login successful",
     user: {
@@ -73,7 +84,7 @@ async function logoutUser(req, res) {
 }
 
 async function registerFoodPartner(req, res) {
-  const { fullName, email, password } = req.body;
+  const { fullName, email, password, phone } = req.body;
   const isPartnerExist = await foodPartnerModel.findOne({ email });
   if (isPartnerExist) {
     return res.status(400).json({ message: "Food Partner already exists" });
@@ -83,16 +94,18 @@ async function registerFoodPartner(req, res) {
     fullName,
     email,
     password: hashedPassword,
+    phone,
   });
   const token = jwt.sign(
-    { partnerId: newPartner._id },
+    { partnerId: newPartner._id, role: "food-partner" },
     process.env.JWT_SECRET,
-    {
-      expiresIn: "1h",
-    },
   );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false,
+  });
 
   await newPartner.save();
   res.status(201).json({
@@ -101,6 +114,7 @@ async function registerFoodPartner(req, res) {
       id: newPartner._id,
       fullName: newPartner.fullName,
       email: newPartner.email,
+      phone: newPartner.phone,
     },
   });
 }
@@ -118,11 +132,19 @@ async function loginFoodPartner(req, res) {
   if (!isPasswordValid) {
     return res.status(400).json({ message: "Invalid email or password" });
   }
-  const token = jwt.sign({ partnerId: partner._id }, process.env.JWT_SECRET, {
-    expiresIn: "1h",
-  });
+  const token = jwt.sign(
+    { partnerId: partner._id, role: "food-partner" },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "7d",
+    },
+  );
 
-  res.cookie("token", token);
+  res.cookie("token", token, {
+    httpOnly: true,
+    sameSite: "lax",
+    secure: false,
+  });
   res.status(200).json({
     message: "Login successful",
     partner: {

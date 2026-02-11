@@ -1,0 +1,107 @@
+@import './variables.css';
+
+*{box-sizing:border-box}
+html,body,#root{height:100%}
+body{
+  margin:0;
+  font-family:var(--font-sans);
+  background-image: linear-gradient(120deg, rgba(255,90,90,0.18), rgba(0,0,0,0.3)), radial-gradient(circle at 10% 20%, rgba(255,120,90,0.12), transparent 10%), radial-gradient(circle at 90% 80%, rgba(0,0,0,0.18));
+  
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+
+.auth-page{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px 16px;
+}
+
+.partnernavigate{
+
+    text-decoration: none;
+    text-align: center;
+    color: aliceblue;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    font: 0.7em sans-serif;
+    
+    
+}
+.partnernavigate:hover{
+  transition: all 0.3s ease;
+    color: rgb(49, 107, 201);
+}
+
+/* .zmt{
+    text-decoration: none;
+    color: aliceblue;
+}
+
+.brand{
+    font-size:20px;
+    font-weight:300;
+    color:white;
+    text-decoration: none;
+    text-align:center;
+    background: linear-gradient(90deg,#ff6b6b,#ff9a6b); color:#fff; box-shadow: 0 12px 30px rgba(255,110,110,0.16);
+    padding: 5px;
+    border-radius: 10px;
+} */
+
+.auth-card{
+  width:100%;
+  max-width:420px;
+  background:var(--card-bg);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:28px;
+  box-shadow:var(--shadow);
+}
+
+.auth-header{margin-bottom:18px}
+.auth-title{font-size:20px;margin:0 0 6px}
+.auth-sub{color:var(--muted);font-size:13px;margin:0}
+
+form{display:flex;flex-direction:column;gap:12px;margin-top:14px}
+label{font-size:13px;color:var(--muted)}
+input[type="text"],input[type="email"],input[type="password"]{
+  width:100%;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:var(--input-bg);
+  color:var(--text);
+}
+
+.row{display:flex;gap:8px}
+.two .col{flex:1}
+
+.btn{
+  padding:10px 12px;
+  background:var(--accent);
+  color:white;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+}
+.btn:hover{
+  transition: all 0.3s ease;
+  opacity:0.75;
+}
+
+.muted{color:var(--muted);font-size:13px;text-align:center;margin-top:12px}
+.muted a{color:var(--accent);text-decoration:none}
+
+@media (max-width:480px){
+  .auth-card{padding:20px;border-radius:10px}
+}
+
+
+@media (max-width:520px){
+  .topbar{padding:10px}
+  .link-btn{padding:7px 10px;font-size:13px}
+}
